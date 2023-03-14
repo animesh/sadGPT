@@ -1,7 +1,7 @@
 import { Answer } from "@/components/Answer/Answer";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
-import { PGChunk } from "@/types";
+import { SadGChunk } from "@/types";
 import { IconArrowRight, IconExternalLink, IconSearch } from "@tabler/icons-react";
 import endent from "endent";
 import Head from "next/head";
@@ -11,7 +11,7 @@ export default function Home() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [query, setQuery] = useState<string>("");
-  const [chunks, setChunks] = useState<PGChunk[]>([]);
+  const [chunks, setChunks] = useState<SadGChunk[]>([]);
   const [answer, setAnswer] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -49,7 +49,7 @@ export default function Home() {
       throw new Error(searchResponse.statusText);
     }
 
-    const results: PGChunk[] = await searchResponse.json();
+    const results: SadGChunk[] = await searchResponse.json();
 
     setChunks(results);
 
@@ -89,7 +89,7 @@ export default function Home() {
       throw new Error(searchResponse.statusText);
     }
 
-    const results: PGChunk[] = await searchResponse.json();
+    const results: SadGChunk[] = await searchResponse.json();
 
     setChunks(results);
 
@@ -150,18 +150,18 @@ export default function Home() {
       return;
     }
 
-    localStorage.setItem("PG_KEY", apiKey);
-    localStorage.setItem("PG_MATCH_COUNT", matchCount.toString());
-    localStorage.setItem("PG_MODE", mode);
+    localStorage.setItem("SadG_KEY", apiKey);
+    localStorage.setItem("SadG_MATCH_COUNT", matchCount.toString());
+    localStorage.setItem("SadG_MODE", mode);
 
     setShowSettings(false);
     inputRef.current?.focus();
   };
 
   const handleClear = () => {
-    localStorage.removeItem("PG_KEY");
-    localStorage.removeItem("PG_MATCH_COUNT");
-    localStorage.removeItem("PG_MODE");
+    localStorage.removeItem("SadG_KEY");
+    localStorage.removeItem("SadG_MATCH_COUNT");
+    localStorage.removeItem("SadG_MODE");
 
     setApiKey("");
     setMatchCount(5);
@@ -177,20 +177,20 @@ export default function Home() {
   }, [matchCount]);
 
   useEffect(() => {
-    const PG_KEY = localStorage.getItem("PG_KEY");
-    const PG_MATCH_COUNT = localStorage.getItem("PG_MATCH_COUNT");
-    const PG_MODE = localStorage.getItem("PG_MODE");
+    const SadG_KEY = localStorage.getItem("SadG_KEY");
+    const SadG_MATCH_COUNT = localStorage.getItem("SadG_MATCH_COUNT");
+    const SadG_MODE = localStorage.getItem("SadG_MODE");
 
-    if (PG_KEY) {
-      setApiKey(PG_KEY);
+    if (SadG_KEY) {
+      setApiKey(SadG_KEY);
     }
 
-    if (PG_MATCH_COUNT) {
-      setMatchCount(parseInt(PG_MATCH_COUNT));
+    if (SadG_MATCH_COUNT) {
+      setMatchCount(parseInt(SadG_MATCH_COUNT));
     }
 
-    if (PG_MODE) {
-      setMode(PG_MODE as "search" | "chat");
+    if (SadG_MODE) {
+      setMode(SadG_MODE as "search" | "chat");
     }
 
     inputRef.current?.focus();

@@ -1,4 +1,4 @@
-import { PGEssay, PGJSON } from "@/types";
+import { SadGEssay, SadGJSON } from "@/types";
 import { loadEnvConfig } from "@next/env";
 import { createClient } from "@supabase/supabase-js";
 import fs from "fs";
@@ -6,7 +6,7 @@ import { Configuration, OpenAIApi } from "openai";
 
 loadEnvConfig("");
 
-const generateEmbeddings = async (essays: PGEssay[]) => {
+const generateEmbeddings = async (essays: SadGEssay[]) => {
   const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
   const openai = new OpenAIApi(configuration);
 
@@ -28,7 +28,7 @@ const generateEmbeddings = async (essays: PGEssay[]) => {
       const [{ embedding }] = embeddingResponse.data.data;
 
       const { data, error } = await supabase
-        .from("pg")
+        .from("sg")
         .insert({
           essay_title,
           essay_url,
@@ -53,7 +53,7 @@ const generateEmbeddings = async (essays: PGEssay[]) => {
 };
 
 (async () => {
-  const book: PGJSON = JSON.parse(fs.readFileSync("scripts/pg.json", "utf8"));
+  const book: SadGJSON = JSON.parse(fs.readFileSync("scripts/sg.json", "utf8"));
 
   await generateEmbeddings(book.essays);
 })();
